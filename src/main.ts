@@ -6,20 +6,20 @@ async function main() {
   const sampleFile = "sample.pdf"
   const sampleFilePath = path.join(__dirname, sampleFile)
   const pdfData = new Uint8Array(await fs.readFile(sampleFilePath))
-  const pdfDocument = await pdfjs.getDocument({data: pdfData}).promise
-  const totalPageCount = pdfDocument.numPages
+  const doc = await pdfjs.getDocument({ data: pdfData }).promise
+  const totalPages = doc.numPages
   const title = await new Promise<string>(async (resolve) => {
-    const { info } = await pdfDocument.getMetadata()
+    const { info } = await doc.getMetadata()
     if ("Title" in info && typeof info.Title === "string") {
       resolve(info.Title)
     } else {
       resolve("")
     }
-  });
-  if (totalPageCount === 0) {
+  })
+  if (totalPages === 0) {
     throw new Error("PDF has no pages")
   }
-  const page = await pdfDocument.getPage(1)
+  const page = await doc.getPage(1)
   const content = await page.getTextContent()
   const text = (() => {
     let text = ""
@@ -31,7 +31,7 @@ async function main() {
     return text
   })()
   console.log("Title: " + title)
-  console.log("Page Count: " + totalPageCount)
+  console.log("Pages: " + totalPages)
   console.log("Text: " + text)
 }
 
