@@ -21,6 +21,18 @@ async function main() {
   }
   const page = await doc.getPage(1)
   const content = await page.getTextContent()
+  // Example to get image data
+  page.getOperatorList().then((ops) => {
+    for (let i = 0; i < ops.fnArray.length; i++) {
+      if (ops.fnArray[i] === pdfjs.OPS.paintImageXObject) {
+        const [objId, w, h] = ops.argsArray[i]
+        console.log(objId, w, h)
+        page.objs.get(objId, (img) => {
+          console.log(img)
+        })
+      }
+    }
+  })
   const text = (() => {
     let text = ""
     for (const item of content.items) {
