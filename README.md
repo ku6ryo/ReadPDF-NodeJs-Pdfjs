@@ -1,0 +1,1 @@
+Example of reading a PDF file in Node.js using pdf.js.

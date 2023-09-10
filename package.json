@@ -1,0 +1,11 @@
+{
+  "name": "read-pdf",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^20.6.0",
+    "pdfjs-dist": "^3.10.111",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
